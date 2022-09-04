@@ -9,7 +9,7 @@ class App extends Component {
     super();
 
     this.state = {
-      gameStart: false,
+      hasGameStart: false,
       game: {},
       user: '',
 
@@ -29,14 +29,15 @@ class App extends Component {
   }
 
   startGame = () => {
-    if(!this.state.gameStart){
+    if(!this.state.hasGameStart){
       let { gameObj } = this;
       gameObj = new Game([this.state.user]);
       gameObj.gameStart();
+
       this.setState(() => {
         return { 
           game: gameObj.data,
-          gameStart: true
+          hasGameStart: true
         }
       }, () => {
         console.log(this.state.game)
@@ -47,7 +48,7 @@ class App extends Component {
 
 
   render() {
-    const { gameStart } = this.state;
+    const { hasGameStart } = this.state;
     const { onUserNameChange, startGame } = this;
 
     return (
@@ -55,7 +56,7 @@ class App extends Component {
         <h1>OMG App</h1>
 
         {
-          !gameStart 
+          !hasGameStart 
           ? 
           <div>
             <input 
@@ -68,6 +69,13 @@ class App extends Component {
           : 
           <div>
             <h2>Game start</h2>
+            <h3>MarketPlace</h3>
+            <div>
+              <p>hand</p>
+            </div>
+            <div>
+              <p>buildings</p>
+            </div>
           </div>
         }
         

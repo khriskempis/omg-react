@@ -1,7 +1,7 @@
 class Deck {
-    constructor(cardIds) {
+    constructor(card) {
       // init with shuffled deck;
-      this.deck = cardIds;
+      this.deck = card;
       this.discardPile = [];
     }
   

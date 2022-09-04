@@ -29,10 +29,13 @@ class Player {
       username: this.userName,
       money: 0,
       vp: 0,
-      isFirstPlayer: false,
       hand: [],
       town: [],
       assistants: [],
+      worker: {
+        efficiently: true,
+        iniefficiently: false,
+      }
     }
   }
 

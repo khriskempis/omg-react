@@ -31,9 +31,8 @@ class Game {
     #BUYING_PHASE;
 
     gameStart(){
-        this._initilizePlayers(this.userNames);
         this._initilizeDeck();
-        this._assignStartingPlayerCards();
+        this._initilizePlayers(this.userNames);
         this.checkPhase();
 
         // return game state
@@ -46,14 +45,15 @@ class Game {
         }
     }
 
-    // create Deck with reference to ids
+    // create Deck this cards passed in
     _initilizeDeck(){
         console.log('init deck');
-        const cards = this.cardData.map(card => card.id);
-        console.log(cards);
+        const cards = this.cardData;
+        
         this.gameDeck = new Deck(cards);
     }
 
+    // create players 
     _initilizePlayers(userNames){
         if (!Array.isArray(userNames)) {
             throw new Error(
@@ -67,19 +67,20 @@ class Game {
                 new Player(userNames[i])
             )
         }
+        // assign starting cards
+        this._assignStartingPlayerCards();
     }
 
     _assignStartingPlayerCards(){
+        // top 4 cards from cardData are the starting cards. 
         const startingCards = this.gameDeck.deal(4)
 
         let shuffledDeck = Deck._shuffle(startingCards);
 
+        // pass players starting building from shuffled deck
         this.players.forEach(player => {
             player.addBuilding(shuffledDeck.pop())
         })
-
-        // check number of players
-        // deal starting card randomly
     }
 
     checkPhase(){
