@@ -1,7 +1,7 @@
 class Deck {
     constructor(cardsIds) {
       // init with shuffled deck;
-      this.deck = this._shuffle(cardsIds);
+      this.deck = Deck._shuffle(cardsIds);
       this.discardPile = [];
     }
   
@@ -56,13 +56,13 @@ class Deck {
   
     _shuffleDiscardPile() {
       // shuffle discard pile
-      const shuffledCards = this._shuffle(this.discardPile);
+      const shuffledCards = Deck._shuffle(this.discardPile);
       // set deck to be the shuffled cards appended to original deck
       this.deck = [...this.deck, ...shuffledCards];
       console.log(this.deck.length, "cards shuffled", this.deck);
     }
   
-    _shuffle(arr) {
+    static _shuffle(arr) {
       if (arr === undefined || arr.length === 0) {
         throw new Error("Empty Deck; Must pass in cards to shuffle");
       }
