@@ -107,6 +107,10 @@ Good Object
         { Building }
     ],
 	“isFirstPlayer” : true,
+    "worker" : {
+        "efficiently" : true,
+        "inefficiently" false
+    }
 }
 ```
 > **Card Example**
