@@ -4,7 +4,6 @@ const cardData = require("../card-data/data.json");
 
 class Game {
     constructor(userNames){
-        this.playerCount = userNames.length;
         this.cardData = cardData;
         this.userNames = userNames;
         this.players = [];
@@ -32,9 +31,9 @@ class Game {
     #BUYING_PHASE;
 
     gameStart(){
+        this._initilizePlayers(this.userNames);
         this._initilizeDeck();
-        this._initilizePlayers(this.playerCount, this.userNames);
-        this.assignStartingPlayerCards();
+        this._assignStartingPlayerCards();
         this.checkPhase();
 
         // return game state
@@ -50,19 +49,19 @@ class Game {
     // create Deck with reference to ids
     _initilizeDeck(){
         console.log('init deck');
-        this.gameDeck = new Deck(this.cardData);
-        // init deck
-        // shuffle deck
-        // assign to this.deck
+        const cards = this.cardData.map(card => card.id);
+        console.log(cards);
+        this.gameDeck = new Deck(cards);
     }
 
-    _initilizePlayers(numPlayers, userNames){
+    _initilizePlayers(userNames){
         if (!Array.isArray(userNames)) {
             throw new Error(
                 "Player Count is empty or is not an Array, pass in array of Players"
             );
         }
 
+        const numPlayers = userNames.length;
         for(let i=0; i < numPlayers; i++){
             this.players.push(
                 new Player(userNames[i])
@@ -70,25 +69,8 @@ class Game {
         }
     }
 
-    assignStartingPlayerCards(){
-        const startingCards = [
-            {
-                id: 1, 
-                name: "Coal Mine"
-            },
-            {
-                id: 2, 
-                name: "Coal Mine"
-            },
-            { 
-                id: 3,
-                name: 'Coal Mine',
-            },
-            {
-                id: 4,
-                name: "Coal Mine"
-            }
-        ];
+    _assignStartingPlayerCards(){
+        const startingCards = this.gameDeck.deal(4)
 
         let shuffledDeck = Deck._shuffle(startingCards);
 

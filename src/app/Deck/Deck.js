@@ -1,7 +1,7 @@
 class Deck {
-    constructor(cardsIds) {
+    constructor(cardIds) {
       // init with shuffled deck;
-      this.deck = Deck._shuffle(cardsIds);
+      this.deck = cardIds;
       this.discardPile = [];
     }
   
@@ -10,10 +10,9 @@ class Deck {
     }
   
     // only passing reference to card, card data will be stored somewhere else. 
-    _readCard() {
+    _grabCard() {
       // grabs first card and returns data
-      const cardId = this.deck.shift();
-      return cardId;
+      return this.deck.shift();
     }
   
     deal(num) {
@@ -29,15 +28,14 @@ class Deck {
       }
   
       if (num === 1) {
-        const card = this._readCard();
+        const card = this._grabCard();
         console.log("card dealt", card);
         return card;
       } else {
         const cards = [];
         for (let i = 0; i < num; i++) {
           // deal out from beginning of deck
-          const card = this._readCard();
-          cards.push(card);
+          cards.push(this._grabCard());
         }
         console.log(cards.length, " cards dealt");
         return cards;
