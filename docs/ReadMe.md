@@ -170,15 +170,13 @@ Good Object
     “germanName” : “Schusterwerkstatt”,
     “img” : “url”
     “requiredResources” : [
-        { 
-            “resource” : “hay”, 
-            “count” : 4 
+        "requiredResource":{
+            "hay" : 4,
+            "clay" : 2,
+            "lumber" : null,
+            "stone" : null,
+            "wool" : null
         },
-        { 
-            “resource” : “clay”,
-            “count” : 2
-        ]
-    ],
     “produce” : [
         { Good }
     ],
