@@ -1,6 +1,20 @@
 const Deck = require('../Deck/Deck');
+const Player = require('../Player/Player');
+const cardData = require("../card-data/data.json");
 
 class Game {
+    constructor(userNames){
+        this.playerCount = userNames.length;
+        this.cardData = cardData;
+        this.userNames = userNames;
+        this.players = [];
+        this.phaseOfGame = 'turn start';
+        this.gameDeck = [];
+
+        this.#TURN_START = 'turn start';
+        this.#DEAL_CARDS = 'deal cards';
+        this.#MARKETPLACE_SUNRISE = 'marketplace sunrise';
+    }
 
     // 'deal cards',
     // 'marketplace sunrise',
@@ -17,23 +31,20 @@ class Game {
     #MARKETPLACE_SUNSET;
     #BUYING_PHASE;
 
-
-    constructor(cardData){
-        this.players = [];
-        this.phaseOfGame = 'turn start';
-        this.gameDeck = [];
-        this.cardData = cardData;
-
-        this.#TURN_START = 'turn start';
-        this.#DEAL_CARDS = 'deal cards';
-        this.#MARKETPLACE_SUNRISE = 'marketplace sunrise';
-    }
-
     gameStart(){
         this._initilizeDeck();
-        this._initilizePlayers();
+        this._initilizePlayers(this.playerCount, this.userNames);
         this.assignStartingPlayerCards();
         this.checkPhase();
+
+        // return game state
+    }
+
+    get data(){
+        return {
+            players: this.players, 
+            gamedDeck: this.gameDeck,
+        }
     }
 
     // create Deck with reference to ids
@@ -45,13 +56,46 @@ class Game {
         // assign to this.deck
     }
 
-    _initilizePlayers(numPlayers){
-        // console.log('init players');
-        // create players
+    _initilizePlayers(numPlayers, userNames){
+        if (!Array.isArray(userNames)) {
+            throw new Error(
+                "Player Count is empty or is not an Array, pass in array of Players"
+            );
+        }
+
+        for(let i=0; i < numPlayers; i++){
+            this.players.push(
+                new Player(userNames[i])
+            )
+        }
     }
 
     assignStartingPlayerCards(){
-        const startingCards = [];
+        const startingCards = [
+            {
+                id: 1, 
+                name: "Coal Mine"
+            },
+            {
+                id: 2, 
+                name: "Coal Mine"
+            },
+            { 
+                id: 3,
+                name: 'Coal Mine',
+            },
+            {
+                id: 4,
+                name: "Coal Mine"
+            }
+        ];
+
+        let shuffledDeck = Deck._shuffle(startingCards);
+
+        this.players.forEach(player => {
+            player.addBuilding(shuffledDeck.pop())
+        })
+
         // check number of players
         // deal starting card randomly
     }
@@ -111,4 +155,4 @@ class Game {
     // trigger next phase (marketplace, resolve buildings)
 }
 
-module.exports = Game;
+export default Game;

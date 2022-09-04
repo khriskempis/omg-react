@@ -1,16 +1,10 @@
 import { Component } from "react";
 
 class Deck extends Component {
-    constructor(){
-        super();
-
-        this.state = {
-            deck: []
-        }
-    }
 
     drawFromDeck = () => { 
         console.log('drawing from deck');
+        this.props.onClickHandler();
     }
 
     render(){
