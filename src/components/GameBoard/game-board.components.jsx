@@ -5,7 +5,7 @@ import Town from '../Town/town.component';
 
 const GameBoard = ({gameObj, player}) => {
 
-  const { hand } = player;
+  const { hand } = player.playerData;
 
   return (
     <div>

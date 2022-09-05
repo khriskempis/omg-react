@@ -74,6 +74,17 @@ class Game {
     }
 
     checkPhase(){
+
+        // separate into functions
+        this.gameDeck = Object.assign(
+            this.gameDeck,
+            { deck: Deck._shuffle(this.gameDeck.deck)}
+        )
+        // separate to functions
+        this.players.forEach(player => {
+            player.addCardToHand(this.gameDeck.deal(2))
+        })
+
        const { phaseOfGame } = this;
         switch (phaseOfGame) {
             case TURN_START:

@@ -43,11 +43,24 @@ class Player {
     return Math.floor(Math.random() * Date.now())
   }
 
-  addBuilding(building){
-    this.playerData.town = [
-      building,
-      ...this.playerData.town
+  addCardToHand(cards){
+    let { hand } = this.playerData;
+    let newHand = [
+      ...cards, 
+      ...hand
     ]
+
+    this.playerData.hand = newHand;
+  }
+
+  addBuilding(building){
+    let { town } = this.playerData;
+    let newTown = [
+      building,
+      ...town
+    ]
+
+    this.playerData.town = newTown 
   }
 }
 
