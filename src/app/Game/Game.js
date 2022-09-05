@@ -2,6 +2,15 @@ const Deck = require('../Deck/Deck');
 const Player = require('../Player/Player');
 const cardData = require("../card-data/data.json");
 
+const { 
+    TURN_START,
+    DEAL_CARDS,
+    MARKETPLACE_SUNRISE,
+    PLACE_WORKER,
+    MARKETPLACE_SUNSET,
+    BUYING_PHASE 
+} = require('../constants');
+
 class Game {
     constructor(userNames){
         this.cardData = cardData;
@@ -9,26 +18,7 @@ class Game {
         this.players = [];
         this.phaseOfGame = 'turn start';
         this.gameDeck = [];
-
-        this.#TURN_START = 'turn start';
-        this.#DEAL_CARDS = 'deal cards';
-        this.#MARKETPLACE_SUNRISE = 'marketplace sunrise';
     }
-
-    // 'deal cards',
-    // 'marketplace sunrise',
-    // 'place worker',
-    // 'marketplace sunset',
-    // 'marketplace sunset',
-    // 'buying phase',
-
-    // Game Phase Constants 
-    #TURN_START;
-    #DEAL_CARDS;
-    #MARKETPLACE_SUNRISE;
-    #PLACE_WORKER;
-    #MARKETPLACE_SUNSET;
-    #BUYING_PHASE;
 
     gameStart(){
         this._initilizeDeck();
@@ -84,41 +74,24 @@ class Game {
     }
 
     checkPhase(){
-        // Turn start
-        // Deal cards
-        // Marketplace Sunrise
-        // Place Worker
-        // MarketPlace Sunset
-        // Building Production
-        // Buying Phase
-        const { phaseOfGame } = this;
-        // move to constants to be able to used in both check and switch
-        const phases = [
-            this.#TURN_START,
-            'deal cards',
-            'marketplace sunrise',
-            'place worker',
-            'marketplace sunset',
-            'marketplace sunset',
-            'buying phase',
-        ]
+       const { phaseOfGame } = this;
         switch (phaseOfGame) {
-            case this.#TURN_START:
+            case TURN_START:
                 
                 break;
-            case 'deal cards': 
+            case DEAL_CARDS: 
 
                 break;
-            case 'marketplace sunrise':
+            case MARKETPLACE_SUNRISE:
 
                 break;
-            case 'place worker':
+            case PLACE_WORKER:
                 
                 break;
-            case 'marketplace sunset':
+            case MARKETPLACE_SUNSET:
 
                 break;
-            case 'buying phase':
+            case BUYING_PHASE:
                 
                 break;
             default:
