@@ -30,7 +30,8 @@ class App extends Component {
     })
   }
 
-  startGame = () => {
+  startGame = (e) => {
+    e.preventDefault();
     if(!this.state.hasGameStart){
       let { gameObj } = this;
       gameObj = new Game([this.state.userName]);
@@ -48,8 +49,6 @@ class App extends Component {
     }
   }
 
-
-
   render() {
     const { hasGameStart, game, player } = this.state;
     const { onUserNameChange, startGame } = this;
@@ -61,14 +60,16 @@ class App extends Component {
         {
           !hasGameStart 
           ? 
-          <div>
-            <input 
-              type="text" 
-              placeholder="username"
-              onChange={onUserNameChange}
-            />
-            <button onClick={startGame}>add user</button>
-          </div>
+          <form onSubmit={startGame}>
+            <label>Add username
+              <input 
+                type="text" 
+                placeholder="username"
+                onChange={onUserNameChange}
+              />
+            </label>
+            <button type="submit" >Start Game</button>
+          </form>
           : 
           <GameBoard 
             gameObj={game}
