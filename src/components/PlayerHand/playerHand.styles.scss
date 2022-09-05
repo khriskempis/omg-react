@@ -1,10 +1,4 @@
-.town {
-  border: 1px solid aqua;
-  padding: 10px;
-  max-width: 800px;
-  margin: 0 auto;
-
-
+.player-hand {
   &__list {
     padding: 0;
     display: flex;
@@ -12,9 +6,9 @@
     max-width: 500px;
   }
 
-  &__building {
+  &__card {
     list-style: none;
-    border: 1px solid blue;
+    border: 1px solid pink;
     padding: 10px;
     margin: 0 10px;
   }
