@@ -1,9 +1,10 @@
 import { Component } from 'react';
 import './App.css';
-import Deck from "./components/deck.component"
-import cardData from "./app/card-data/data.json";
 
 import Game from "./app/Game/Game.js";
+
+// Components
+import GameBoard from './components/GameBoard/game-board.components';
 class App extends Component {
   constructor(){
     super();
@@ -11,7 +12,8 @@ class App extends Component {
     this.state = {
       hasGameStart: false,
       game: {},
-      user: '',
+      userName: '',
+      player: {}
 
     }
 
@@ -24,19 +26,20 @@ class App extends Component {
 
   onUserNameChange = (event) => {
     this.setState(()=> {
-      return { user: event.target.value}
+      return { userName: event.target.value}
     })
   }
 
   startGame = () => {
     if(!this.state.hasGameStart){
       let { gameObj } = this;
-      gameObj = new Game([this.state.user]);
+      gameObj = new Game([this.state.userName]);
       gameObj.gameStart();
 
       this.setState(() => {
         return { 
           game: gameObj.data,
+          player: gameObj.players[0],
           hasGameStart: true
         }
       }, () => {
@@ -48,7 +51,7 @@ class App extends Component {
 
 
   render() {
-    const { hasGameStart } = this.state;
+    const { hasGameStart, game, player } = this.state;
     const { onUserNameChange, startGame } = this;
 
     return (
@@ -67,16 +70,10 @@ class App extends Component {
             <button onClick={startGame}>add user</button>
           </div>
           : 
-          <div>
-            <h2>Game start</h2>
-            <h3>MarketPlace</h3>
-            <div>
-              <p>hand</p>
-            </div>
-            <div>
-              <p>buildings</p>
-            </div>
-          </div>
+          <GameBoard 
+            gameObj={game}
+            player={player}
+          />
         }
         
       </div>
