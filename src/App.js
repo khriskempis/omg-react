@@ -32,26 +32,45 @@ class App extends Component {
 
   startGame = (e) => {
     e.preventDefault();
-    if(!this.state.hasGameStart){
-      let { gameObj } = this;
-      gameObj = new Game([this.state.userName]);
-      gameObj.gameStart();
+    const { hasGameStart, userName } = this.state;
+    if(!hasGameStart){
+      
+      this.gameObj = new Game([userName]);
+      this.gameObj.gameStart();
+      console.log(this.gameObj)
 
       this.setState(() => {
         return { 
-          game: gameObj.data,
-          player: gameObj.players[0],
+          game: this.gameObj.data,
+          // assign first player of array
+          player: this.gameObj.players[0],
           hasGameStart: true
         }
       }, () => {
-        console.log(this.state.game)
+
       })
     }
   }
 
+  dealCard = () => {
+    // fix charburner being dealt from deck
+    const { userName } = this.state;
+    const card = this.gameObj.gameDeck.deal(1);
+    const currentPlayer = this.gameObj.players.find(player => player.userName === userName);
+    currentPlayer.playerData.hand.push(card);
+
+    this.setState(() => {
+      return { game: this.gameObj.data}
+    })
+  }
+
   render() {
     const { hasGameStart, game, player } = this.state;
-    const { onUserNameChange, startGame } = this;
+    const { 
+      onUserNameChange, 
+      startGame,
+      dealCard,
+    } = this;
 
     return (
       <div className="App">
@@ -71,10 +90,17 @@ class App extends Component {
             <button type="submit" >Start Game</button>
           </form>
           : 
-          <GameBoard 
-            gameObj={game}
-            player={player}
-          />
+          <div>
+            <div className="trigger">
+              <button onClick={dealCard}>Deal Card</button>
+              <button>Trigger Next Phase</button>
+              <button>End Turn</button>
+            </div>
+            <GameBoard 
+              gameObj={game}
+              player={player}
+            />
+          </div>
         }
         
       </div>
