@@ -16,15 +16,19 @@ class Game {
         this.cardData = cardData;
         this.userNames = userNames;
         this.players = [];
-        this.phaseOfGame = 'turn start';
         this.gameDeck = [];
+
+        this.currentPhaseOfGame = TURN_START;
+
+        // MarketPlace 
+        this.marketSunrise = [];
+        this.marketSunset = [];
     }
 
     gameStart(){
         this._initilizeDeck();
         this._initilizePlayers(this.userNames);
         this.checkPhase();
-
         // return game state
     }
 
@@ -39,13 +43,17 @@ class Game {
     _initilizeDeck(){
         console.log('init deck');
         const cards = this.cardData;
+        const startingCards = cards.slice(0, 4);
         
         this.gameDeck = new Deck(cards);
+        this.gameDeck.startingCards = startingCards;
+        this.gameDeck.deck = Deck.shuffle(this.gameDeck.deck);
+
     }
 
     // create players 
     _initilizePlayers(userNames){
-        if (!Array.isArray(userNames)) {
+        if (userNames && !Array.isArray(userNames)) {
             throw new Error(
                 "Player Count is empty or is not an Array, pass in array of Players"
             );
@@ -63,9 +71,9 @@ class Game {
 
     _assignStartingPlayerCards(){
         // top 4 cards from cardData are the starting cards. 
-        const startingCards = this.gameDeck.deal(4)
+        const startingCards = this.gameDeck.startingCards;
 
-        let shuffledDeck = Deck._shuffle(startingCards);
+        let shuffledDeck = Deck.shuffle(startingCards);
 
         // pass players starting building from shuffled deck
         this.players.forEach(player => {
@@ -73,20 +81,30 @@ class Game {
         })
     }
 
+    advancePhase(){
+        // error checks
+        let gamePhases = [
+            TURN_START,
+            DEAL_CARDS,
+            MARKETPLACE_SUNRISE,
+            MARKETPLACE_SUNSET,
+        ]
+    }
+
     checkPhase(){
 
         // separate into functions
-        this.gameDeck = Object.assign(
-            this.gameDeck,
-            { deck: Deck._shuffle(this.gameDeck.deck)}
-        )
+        // this.gameDeck = Object.assign(
+        //     this.gameDeck,
+        //     { deck: Deck._shuffle(this.gameDeck.deck)}
+        // )
         // separate to functions
         this.players.forEach(player => {
             player.addCardToHand(this.gameDeck.deal(2))
         })
 
-       const { phaseOfGame } = this;
-        switch (phaseOfGame) {
+       const { currentPhaseOfGame } = this;
+        switch (currentPhaseOfGame) {
             case TURN_START:
                 
                 break;
@@ -111,6 +129,15 @@ class Game {
         }
         
 
+    }
+
+    addToMarketPlace(market){
+        let suns = 0;
+        while(suns < 2){
+            let currentCard = this.gameDeck.deal(1);
+            market.push(currentCard);
+            if(currentCard.sun) suns++;
+        }
     }
 
     // track first player
