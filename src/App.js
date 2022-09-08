@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import './App.css';
+import { TURN_START } from './app/constants';
 
 import Game from "./app/Game/Game.js";
 
@@ -52,7 +53,7 @@ class App extends Component {
     }
   }
 
-  dealCard = () => {
+  handleDealCard = () => {
     // fix charburner being dealt from deck
     const { userName } = this.state;
     const card = this.gameObj.gameDeck.deal(1);
@@ -64,12 +65,20 @@ class App extends Component {
     })
   }
 
+  handleTriggerPhase = () => {
+    this.gameObj.checkPhase();
+    this.setState(() => {
+      return { game: this.gameObj.data}
+    })
+  }
+
   render() {
     const { hasGameStart, game, player } = this.state;
     const { 
       onUserNameChange, 
       startGame,
-      dealCard,
+      handleDealCard,
+      handleTriggerPhase
     } = this;
 
     return (
@@ -92,8 +101,8 @@ class App extends Component {
           : 
           <div>
             <div className="trigger">
-              <button onClick={dealCard}>Deal Card</button>
-              <button>Trigger Next Phase</button>
+              <button onClick={handleDealCard}>Deal Card</button>
+              <button onClick={handleTriggerPhase}>Trigger Next Phase</button>
               <button>End Turn</button>
             </div>
             <GameBoard 

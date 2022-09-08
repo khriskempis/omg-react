@@ -28,7 +28,6 @@ class Game {
     gameStart(){
         this._initilizeDeck();
         this._initilizePlayers(this.userNames);
-        this.checkPhase();
         // return game state
     }
 
@@ -36,19 +35,19 @@ class Game {
         return {
             players: this.players, 
             gamedDeck: this.gameDeck,
+            game: this,
         }
     }
 
     // create Deck this cards passed in
     _initilizeDeck(){
         console.log('init deck');
-        const cards = this.cardData;
-        const startingCards = cards.slice(0, 4);
+        let cards = this.cardData;
+        const startingCards = cards.splice(0, 4);
         
         this.gameDeck = new Deck(cards);
         this.gameDeck.startingCards = startingCards;
         this.gameDeck.deck = Deck.shuffle(this.gameDeck.deck);
-
     }
 
     // create players 
@@ -99,36 +98,59 @@ class Game {
         //     { deck: Deck._shuffle(this.gameDeck.deck)}
         // )
         // separate to functions
-        this.players.forEach(player => {
-            player.addCardToHand(this.gameDeck.deal(2))
-        })
 
        const { currentPhaseOfGame } = this;
         switch (currentPhaseOfGame) {
             case TURN_START:
+                console.log('Turn start')
                 
+                if(this.marketSunrise.length || this.marketSunset.length){
+                    const discardedCards = [
+                        ...this.marketSunrise,
+                        ...this.marketSunset
+                    ]
+                    this.gameDeck.discard(discardedCards);
+                }
+
+                this.marketSunset = [];
+                this.marketSunrise = [];
+                // restart game
+                // submit old hand, deal new hand
+                this.currentPhaseOfGame = DEAL_CARDS;
                 break;
             case DEAL_CARDS: 
-
+                console.log('dealing 2 cards')
+                // deal 2(3) cards
+                this.players.forEach(player => {
+                    player.addCardToHand(this.gameDeck.deal(2))
+                })
+                this.currentPhaseOfGame = MARKETPLACE_SUNRISE;
                 break;
             case MARKETPLACE_SUNRISE:
-
+                console.log('market place sunrise');
+                this.addToMarketPlace(this.marketSunrise);
+                this.currentPhaseOfGame = PLACE_WORKER;
                 break;
             case PLACE_WORKER:
-                
+                console.log('place worker');
+                this.currentPhaseOfGame = MARKETPLACE_SUNSET                
                 break;
             case MARKETPLACE_SUNSET:
-
+                console.log('marketplace sunsert')
+                this.addToMarketPlace(this.marketSunset);
+                this.currentPhaseOfGame = BUYING_PHASE;
                 break;
             case BUYING_PHASE:
-                
+                console.log('buying phase');
+                // calculate resources used and buildings that produced
+
+                // restart game
+                this.currentPhaseOfGame = TURN_START;
                 break;
             default:
 
                 break;
         }
-        
-
     }
 
     addToMarketPlace(market){

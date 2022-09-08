@@ -18,7 +18,7 @@ class Deck {
   
     deal(num) {
       // make sure deck is init with card ids
-      if (this.deck === undefined) {
+      if (this.deck === undefined || this.deck.length === 0) {
         throw new Error(
           "Deck is empty; Make sure to pass cards to Deck constructor"
         );
