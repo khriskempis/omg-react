@@ -80,24 +80,7 @@ class Game {
         })
     }
 
-    advancePhase(){
-        // error checks
-        let gamePhases = [
-            TURN_START,
-            DEAL_CARDS,
-            MARKETPLACE_SUNRISE,
-            MARKETPLACE_SUNSET,
-        ]
-    }
-
     checkPhase(){
-
-        // separate into functions
-        // this.gameDeck = Object.assign(
-        //     this.gameDeck,
-        //     { deck: Deck._shuffle(this.gameDeck.deck)}
-        // )
-        // separate to functions
 
        const { currentPhaseOfGame } = this;
         switch (currentPhaseOfGame) {

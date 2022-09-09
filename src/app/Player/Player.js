@@ -31,11 +31,7 @@ class Player {
       vp: 0,
       hand: [],
       town: [],
-      assistants: [],
-      worker: {
-        efficiently: true,
-        iniefficiently: false,
-      }
+      assistants: []
     }
   }
 

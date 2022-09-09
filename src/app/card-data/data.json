@@ -211,113 +211,115 @@
 
    {
       "id":11,
-      "name":"Food Factory",
-      "germanName":"Nahrungsfabrik",
-      "price":21,
-      "vp":5,
+      "name":"Brick Manufacture",
+      "germanName":"Ziegelei",
+      "price":5,
+      "vp":2,
       "sun":true,
-      "type":"Hay",
-      "color":"yellow",
-      "resource":"Hay",
+      "type":"Clay",
+      "color":"red",
+      "resource":"Clay",
       "requiredResource":{
          "hay":null,
-         "clay":1,
-         "lumber":null,
-         "stone":3,
+         "clay":null,
+         "lumber":2,
+         "stone":2,
          "wool":null
       },
-      "produce":"Food",
-      "value":8,
+      "produce":"Brick",
+      "value":2,
       "chain":[
-         "Bread"
+         "Clay",
+         "Coal"
       ]
    },
    {
       "id":12,
-      "name":"Mill",
-      "germanName":"Muhle",
-      "price":2,
-      "vp":2,
+      "name":"Tailor's Shop",
+      "germanName":"Naherei",
+      "price":7,
+      "vp":3,
       "sun":true,
-      "type":"Hay",
-      "color":"yellow",
-      "resource":"Hay",
+      "type":"Wool",
+      "color":"white",
+      "resource":"Wool",
       "requiredResource":{
-         "hay":3,
+         "hay":null,
          "clay":null,
          "lumber":null,
-         "stone":null,
-         "wool":1
+         "stone":2,
+         "wool":3
       },
-      "produce":"Grain",
+      "produce":"Shirt",
       "value":2,
       "chain":[
-         "Hay"
+         "Coal",
+         "Fabric"
       ]
    },
    {
       "id":13,
-      "name":"Mill",
-      "germanName":"Muhle",
-      "price":2,
-      "vp":2,
+      "name":"Market Office",
+      "germanName":"Marktamt",
+      "price":8,
+      "vp":3,
       "sun":false,
-      "type":"Hay",
-      "color":"yellow",
-      "resource":"Hay",
+      "type":"Stone",
+      "color":"gray",
+      "resource":"Stone",
       "requiredResource":{
-         "hay":3,
+         "hay":null,
          "clay":null,
          "lumber":null,
          "stone":null,
-         "wool":1
+         "wool":null
       },
-      "produce":"Grain",
-      "value":2,
-      "chain":[
-         "Hay"
-      ]
+      "plusOneResource":"Hay",
+      "produce":null,
+      "value":null,
+      "chain":[]
    },
    {
       "id":14,
-      "name":"Farm",
-      "germanName":"Muhle",
-      "price":2,
+      "name":"Weaving Mill",
+      "germanName":"Weberei",
+      "price":8,
       "vp":2,
-      "sun":false,
-      "type":"Hay",
-      "color":"yellow",
-      "resource":"Hay",
+      "sun":true,
+      "type":"Wool",
+      "color":"white",
+      "resource":"Wool",
       "requiredResource":{
-         "hay":3,
+         "hay":2,
          "clay":null,
-         "lumber":null,
+         "lumber":2,
          "stone":null,
-         "wool":1
+         "wool":null
       },
-      "produce":"Grain",
-      "value":2,
+      "produce":"Fabric",
+      "value":3,
       "chain":[
-         "Hay"
+         "Wool"
       ]
    },
    {
       "id":15,
-      "name":"Food Factory",
-      "germanName":"Muhle",
-      "price":2,
+      "name":"Market Office",
+      "germanName":"Marktamt",
+      "price":6,
       "vp":2,
-      "sun":true,
-      "type":"Hay",
-      "color":"yellow",
-      "resource":"Hay",
+      "sun":false,
+      "type":"Stone",
+      "color":"gray",
+      "resource":"Stone",
       "requiredResource":{
-         "hay":3,
+         "hay":null,
          "clay":null,
          "lumber":null,
          "stone":null,
-         "wool":1
+         "wool":null
       },
+      "plusOneResource":"Card",
       "produce":"Grain",
       "value":2,
       "chain":[
@@ -326,117 +328,340 @@
    },
    {
       "id":16,
-      "name":"Mill",
-      "germanName":"Muhle",
-      "price":2,
+      "name":"GlassMaker",
+      "germanName":"Glaserei",
+      "price":5,
       "vp":2,
       "sun":false,
-      "type":"Hay",
-      "color":"yellow",
-      "resource":"Hay",
-      "requiredResource":{
-         "hay":3,
-         "clay":null,
-         "lumber":null,
-         "stone":null,
-         "wool":1
-      },
-      "produce":"Grain",
-      "value":2,
-      "chain":[
-         "Hay"
-      ]
+      "type":"Lumber",
+      "color":"green",
+      "resource":"Lumber",
+      "requiredResource": 11,
+      "produce":"Glass",
+      "value":4,
+      "chain":[]
    },
    {
       "id":17,
-      "name":"Farm",
-      "germanName":"Muhle",
-      "price":2,
+      "name":"Sawmill",
+      "germanName":"Sagemuhle",
+      "price":3,
       "vp":2,
       "sun":true,
-      "type":"Hay",
-      "color":"yellow",
-      "resource":"Hay",
+      "type":"Lumber",
+      "color":"green",
+      "resource":"Lumber",
       "requiredResource":{
-         "hay":3,
-         "clay":null,
+         "hay":null,
+         "clay":2,
          "lumber":null,
-         "stone":null,
-         "wool":1
+         "stone":2,
+         "wool":null
       },
-      "produce":"Grain",
+      "produce":"Plank",
       "value":2,
       "chain":[
-         "Hay"
+         "Lumber"
       ]
    },
    {
       "id":18,
-      "name":"Food Factory",
-      "germanName":"Muhle",
-      "price":2,
-      "vp":2,
+      "name":"Tool Maker",
+      "germanName":"Wekzeugshmiede",
+      "price":17,
+      "vp":4,
       "sun":false,
-      "type":"Hay",
-      "color":"yellow",
-      "resource":"Hay",
+      "type":"Lumber",
+      "color":"green",
+      "resource":"Lumber",
       "requiredResource":{
-         "hay":3,
+         "hay":null,
          "clay":null,
-         "lumber":null,
-         "stone":null,
-         "wool":1
+         "lumber":3,
+         "stone":3,
+         "wool":null
       },
-      "produce":"Grain",
+      "produce":"Tools",
       "value":2,
       "chain":[
-         "Hay"
+         "Iron",
+         "Coal"
       ]
    },
    {
       "id":19,
       "name":"Market Office",
-      "germanName":"Muhle",
-      "price":2,
+      "germanName":"Marktamt",
+      "price":8,
+      "vp":3,
+      "sun":false,
+      "type":"Stone",
+      "color":"gray",
+      "resource":"Stone",
+      "requiredResource":{
+         "hay":null,
+         "clay":null,
+         "lumber":null,
+         "stone":null,
+         "wool":null
+      },
+      "plusOneResource":"Wool",
+      "produce":null,
+      "value":null,
+      "chain":[]
+   },
+   {
+      "id":20,
+      "name":"Sawmill",
+      "germanName":"Sagemuhle",
+      "price":4,
       "vp":2,
+      "sun":false,
+      "type":"Lumber",
+      "color":"green",
+      "resource":"Lumber",
+      "requiredResource":{
+         "hay":null,
+         "clay":2,
+         "lumber":2,
+         "stone":null,
+         "wool":null
+      },
+      "produce":"Plank",
+      "value":2,
+      "chain":[
+         "Lumber"
+      ]
+   },
+   {
+      "id":21,
+      "name":"Market Office",
+      "germanName":"Marktamt",
+      "price":8,
+      "vp":3,
+      "sun":false,
+      "type":"Stone",
+      "color":"gray",
+      "resource":"Stone",
+      "requiredResource":{
+         "hay":null,
+         "clay":null,
+         "lumber":null,
+         "stone":null,
+         "wool":null
+      },
+      "plusOneResource":"Lumber",
+      "produce":null,
+      "value":null,
+      "chain":[]
+   },
+   {
+      "id":22,
+      "name":"Brick Manufacturer",
+      "germanName":"Ziegelei",
+      "price":3,
+      "vp":2,
+      "sun":true,
+      "type":"Clay",
+      "color":"red",
+      "resource":"Clay",
+      "requiredResource":{
+         "hay":null,
+         "clay":null,
+         "lumber":null,
+         "stone":2,
+         "wool":2
+      },
+      "produce":"Brick",
+      "value":2,
+      "chain":[
+         "Coal",
+         "Clay"
+      ]
+   },
+   {
+      "id":23,
+      "name":"Brick Manufacturer",
+      "germanName":"Ziegelei",
+      "price":3,
+      "vp":2,
+      "sun":true,
+      "type":"Clay",
+      "color":"red",
+      "resource":"Clay",
+      "requiredResource":{
+         "hay":2,
+         "clay":null,
+         "lumber":null,
+         "stone":2,
+         "wool":null
+      },
+      "produce":"Brick",
+      "value":2,
+      "chain":[
+         "Coal",
+         "Clay"
+      ]
+   },
+   {
+      "id":24,
+      "name":"Cattle Ranch",
+      "germanName":"Rinderfarm",
+      "price":8,
+      "vp":2,
+      "sun":true,
+      "type":"Clay",
+      "color":"red",
+      "resource":"Clay",
+      "requiredResource":{
+         "hay":2,
+         "clay":null,
+         "lumber":2,
+         "stone":null,
+         "wool":null
+      },
+      "produce":"Cattle",
+      "value":3,
+      "chain":[
+         "Hay"
+      ]
+   },
+   {
+      "id":25,
+      "name":"Market Office",
+      "germanName":"Marktamt",
+      "price":8,
+      "vp":3,
+      "sun":true,
+      "type":"Stone",
+      "color":"gray",
+      "resource":"Stone",
+      "requiredResource":{
+         "hay":null,
+         "clay":null,
+         "lumber":null,
+         "stone":null,
+         "wool":null
+      },
+      "plusOneResource":"Wool",
+      "produce":null,
+      "value":null,
+      "chain":[]
+   },
+   {
+      "id":26,
+      "name":"Bakery",
+      "germanName":"Backerei",
+      "price":9,
+      "vp":3,
       "sun":true,
       "type":"Hay",
       "color":"yellow",
       "resource":"Hay",
       "requiredResource":{
          "hay":3,
-         "clay":null,
+         "clay":2,
          "lumber":null,
          "stone":null,
-         "wool":1
+         "wool":null
       },
-      "produce":"Grain",
-      "value":2,
+      "produce":"Bread",
+      "value":4,
       "chain":[
-         "Hay"
+         "Coal",
+         "Grain"
       ]
    },
    {
-      "id":20,
-      "name":"Market Office",
-      "germanName":"Muhle",
-      "price":2,
+      "id":27,
+      "name":"Butcher",
+      "germanName":"Fleischerei",
+      "price":12,
+      "vp":4,
+      "sun":true,
+      "type":"Wool",
+      "color":"white",
+      "resource":"Wool",
+      "requiredResource":{
+         "hay":2,
+         "clay":null,
+         "lumber":null,
+         "stone":4,
+         "wool":null
+      },
+      "produce":"Meat",
+      "value":7,
+      "chain":[
+         "Cattle"
+      ]
+   },
+   {
+      "id":28,
+      "name":"Weaving Mill",
+      "germanName":"Weberei",
+      "price":6,
       "vp":2,
       "sun":false,
-      "type":"Hay",
-      "color":"yellow",
-      "resource":"Hay",
+      "type":"Wool",
+      "color":"white",
+      "resource":"Wool",
+      "requiredResource":{
+         "hay":null,
+         "clay":null,
+         "lumber":null,
+         "stone":2,
+         "wool":2
+      },
+      "produce":"Fabric",
+      "value":3,
+      "chain":[
+         "Wool"
+      ]
+   },
+   {
+      "id":29,
+      "name":"Tailor's Shop",
+      "germanName":"Naherei",
+      "price":7,
+      "vp":3,
+      "sun":false,
+      "type":"Wool",
+      "color":"white",
+      "resource":"Wool",
       "requiredResource":{
          "hay":3,
          "clay":null,
          "lumber":null,
          "stone":null,
-         "wool":1
+         "wool":2
       },
-      "produce":"Grain",
-      "value":2,
+      "produce":"Shirt",
+      "value":4,
       "chain":[
-         "Hay"
+         "Coal",
+         "Fabric"
       ]
+   },
+   {
+      "id":30,
+      "name":"Market Office",
+      "germanName":"Marktamt",
+      "price":8,
+      "vp":3,
+      "sun":true,
+      "type":"Stone",
+      "color":"gray",
+      "resource":"Stone",
+      "requiredResource":{
+         "hay":null,
+         "clay":null,
+         "lumber":null,
+         "stone":null,
+         "wool":null
+      },
+      "plusOneResource":"Stone",
+      "produce":null,
+      "value":null,
+      "chain":[]
    }
 ]
