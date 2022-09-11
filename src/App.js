@@ -1,8 +1,7 @@
 import { Component } from 'react';
 import './App.css';
-import { TURN_START } from './app/constants';
 
-import Game from "./app/Game/Game.js";
+import Game from "./app/Game/";
 
 // Components
 import GameBoard from './components/GameBoard/game-board.components';

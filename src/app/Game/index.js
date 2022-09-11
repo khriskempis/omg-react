@@ -1,6 +1,6 @@
-const Deck = require('../Deck/Deck');
-const Player = require('../Player/Player');
-const cardData = require("../card-data/data.json");
+const Deck = require('../Deck');
+const Player = require('../Player');
+const cardData = require("../../util/card-data/data.json");
 
 const { 
     TURN_START,
