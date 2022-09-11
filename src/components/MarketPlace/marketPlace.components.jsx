@@ -6,7 +6,7 @@ const MarketPlace = ({ marketArray, className }) => {
             marketArray &&
             marketArray.map(card => {
               return (
-                <li key={card.id} className="marketplace__resource" style={ {backgroundColor: `${card.color}`}}>
+                <li key={card.id} className="marketplace__resource game__resource" style={ {backgroundColor: `${card.color}`}}>
                   <p>{card.resource}</p>
                 </li>
               )

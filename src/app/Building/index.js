@@ -65,7 +65,7 @@ class Building {
     this.chain = chain;
     this.plusOneResource = plusOneResource || null;
 
-    // new props
+    // added props
     this.totalGoods = 0;
     this.hasWorker = false
     this.hasAssistant = false

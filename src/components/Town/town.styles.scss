@@ -1,22 +1,22 @@
 .town {
-  border: 1px solid aqua;
-  padding: 10px;
-  max-width: 800px;
-  margin: 0 auto;
-
+  border: 1px solid transparent;
+  background-color: #ffc0b36b;
 
   &__list {
     padding: 0;
     display: flex;
-    margin: 10px auto;
-    max-width: 500px;
   }
 
   &__building {
     list-style: none;
-    border: 1px solid blue;
     padding: 10px;
     margin: 0 10px;
     min-width: 150px;
+
+    &:hover {
+      box-shadow: 0px 7px 8px -4px rgb(0 0 0 / 20%),
+       0px 13px 19px 2px rgb(0 0 0 / 14%), 
+       0px 5px 24px 4px rgb(0 0 0 / 12%);
+    }
   }
 }

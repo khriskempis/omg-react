@@ -1,0 +1,17 @@
+.game {
+  &__section {
+    margin: 30px auto;
+    padding: 10px 10px 20px;
+    max-width: 800px;
+    border-radius: 10px;
+  }
+
+  &__card {
+    border-radius: 7px;
+    background-color: #26aeff52;
+  }
+
+  &__resource {
+    border-radius: 7px;
+  }
+}

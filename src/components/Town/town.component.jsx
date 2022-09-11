@@ -7,14 +7,14 @@ import './town.styles.scss'
 
 const Town = ({ player: { town } }) => {
   return (
-    <div className="town">
+    <div className="town game__section">
       <h4>Town</h4>
       <ul className="town__list">
         {
           town && 
           town.map(({ id, name, requiredResource, plusOneResource, produce, value }) => {
           return (
-            <li className="town__building" key={id}>
+            <li className="town__building game__card" key={id}>
               <h4>{name}</h4>
               <div className="town__resources">
                 {
