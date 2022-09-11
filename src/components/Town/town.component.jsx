@@ -6,7 +6,6 @@ import {
 import './town.styles.scss'
 
 const Town = ({ player: { town } }) => {
-
   return (
     <div className="town">
       <h4>Town</h4>

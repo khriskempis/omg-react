@@ -11,10 +11,12 @@ const GameBoard = ({gameObj, player}) => {
 
   return (
     <div>
-      <h3>MarketPlace</h3>
-      <div className="marketplace__container">
-        <MarketPlace marketArray={marketSunrise} className={'sunrise'}/>
-        <MarketPlace marketArray={marketSunset} className={'sunset'}/>
+      <div className="marketplace">
+        <h3>MarketPlace</h3>
+        <div className="marketplace__container">
+          <MarketPlace marketArray={marketSunrise} className={'sunrise'}/>
+          <MarketPlace marketArray={marketSunset} className={'sunset'}/>
+        </div>
       </div>
 
       <PlayerHand player={player} />
