@@ -31,6 +31,7 @@ class Building {
     {
       id, 
       color,
+      name,
       germanName,
       img,
       requiredResource: { 
@@ -49,6 +50,7 @@ class Building {
 
     this.id = id;
     this.color = color;
+    this.name = name;
     this.germanName = germanName;
     this.img = img || null;
     this.requiredResource = {

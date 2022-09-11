@@ -1,4 +1,8 @@
 import './playerHand.styles.scss'
+import { 
+  renderRequiredResource, 
+  renderMarketOfficeResource
+} from '../Resources/resources.component'
 
 const PlayerHand = ({ player: { hand } }) => {
   return (
@@ -29,45 +33,6 @@ const PlayerHand = ({ player: { hand } }) => {
         }
       </ul>
     </div>
-  )
-}
-
-const renderRequiredResource = (requiredResource) => {
-  // TODO: add highest to lowest resource logic to display of resources
-  return (
-    <>
-      { 
-        Object.entries(requiredResource)
-          .filter(([ resource, amount ]) => {
-            return amount !== null;
-          })
-          .map(([ resource, amount ], index) => {
-              return(
-                <p 
-                  className="player-hand__required-resource"
-                  key={index}
-                  type={resource} 
-                  anount={amount}
-                >
-                    {amount} {resource.charAt(0).toUpperCase() + resource.slice(1)}
-                </p> 
-              )
-          })
-      }
-    </>
-  )
-}
-
-const renderMarketOfficeResource = (resource) => {
-  return (
-    <>
-      <p
-        className="player-hand__plus-one-resource"
-        plusOne={resource}
-      >
-        +{resource}
-      </p>
-    </>
   )
 }
 
