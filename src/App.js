@@ -21,7 +21,6 @@ class App extends Component {
   }
   
   componentDidMount(){
-
   }
 
   onUserNameChange = (event) => {
@@ -37,7 +36,6 @@ class App extends Component {
       
       this.gameObj = new Game([userName]);
       this.gameObj.gameStart();
-      console.log(this.gameObj)
 
       this.setState(() => {
         return { 
@@ -46,8 +44,6 @@ class App extends Component {
           player: this.gameObj.players[0],
           hasGameStart: true
         }
-      }, () => {
-
       })
     }
   }
@@ -82,7 +78,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>OMG App</h1>
+        <h1>Oh My Goods!</h1>
 
         {
           !hasGameStart 
@@ -105,7 +101,7 @@ class App extends Component {
               <button>End Turn</button>
             </div>
             <GameBoard 
-              gameObj={game}
+              game={game.game}
               player={player}
             />
           </div>

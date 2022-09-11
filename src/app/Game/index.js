@@ -34,7 +34,7 @@ class Game {
     get data(){
         return {
             players: this.players, 
-            gamedDeck: this.gameDeck,
+            gameDeck: this.gameDeck,
             game: this,
         }
     }

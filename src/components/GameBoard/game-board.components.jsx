@@ -5,9 +5,9 @@ import PlayerHand from '../PlayerHand/playerHand.component';
 import Town from '../Town/town.component';
 import MarketPlace from '../MarketPlace/marketPlace.components';
 
-const GameBoard = ({gameObj, player}) => {
+const GameBoard = ({game, player}) => {
 
-  const { game: { marketSunrise, marketSunset} } = gameObj;
+  const { marketSunrise, marketSunset } = game;
 
   return (
     <div>
