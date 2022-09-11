@@ -1,6 +1,6 @@
 const MarketPlace = ({ marketArray, className }) => {
   return (
-    <div>
+    <div className="marketplace__container container__overflow-scroll">
       <ul className={`marketplace__market marketplace__${className}`}>
           {
             marketArray &&

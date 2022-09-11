@@ -12,9 +12,8 @@ class App extends Component {
     this.state = {
       hasGameStart: false,
       game: {},
-      userName: '',
+      userName: 'Khris',
       player: {}
-
     }
 
     this.gameObj = {}
@@ -68,7 +67,7 @@ class App extends Component {
   }
 
   render() {
-    const { hasGameStart, game, player } = this.state;
+    const { hasGameStart, game, player, userName } = this.state;
     const { 
       onUserNameChange, 
       startGame,
@@ -89,6 +88,7 @@ class App extends Component {
                 type="text" 
                 placeholder="username"
                 onChange={onUserNameChange}
+                value={userName}
               />
             </label>
             <button type="submit" >Start Game</button>

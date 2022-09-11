@@ -13,10 +13,8 @@ const GameBoard = ({game, player}) => {
     <div>
       <div className="marketplace game__section">
         <h3>MarketPlace</h3>
-        <div className="marketplace__container">
           <MarketPlace marketArray={marketSunrise} className={'sunrise'}/>
           <MarketPlace marketArray={marketSunset} className={'sunset'}/>
-        </div>
       </div>
 
       <PlayerHand player={player} />
