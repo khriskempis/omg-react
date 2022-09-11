@@ -2,6 +2,7 @@
   &__list {
     padding: 0;
     display: flex;
+    flex-flow: wrap;
     margin: 10px auto;
     max-width: 1000px;
   }
@@ -10,7 +11,7 @@
     list-style: none;
     border: 1px solid pink;
     padding: 10px;
-    margin: 0 10px;
-    min-width: 130px;
+    margin: 0 10px 10px;
+    width: 130px;
   }
 }

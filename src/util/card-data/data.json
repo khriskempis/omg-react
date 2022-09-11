@@ -312,13 +312,7 @@
       "type":"Stone",
       "color":"gray",
       "resource":"Stone",
-      "requiredResource":{
-         "hay":null,
-         "clay":null,
-         "lumber":null,
-         "stone":null,
-         "wool":null
-      },
+      "requiredResource":null,
       "plusOneResource":"Card",
       "produce":"Grain",
       "value":2,
@@ -328,7 +322,7 @@
    },
    {
       "id":16,
-      "name":"GlassMaker",
+      "name":"Glass Maker",
       "germanName":"Glaserei",
       "price":5,
       "vp":2,
@@ -400,13 +394,7 @@
       "type":"Stone",
       "color":"gray",
       "resource":"Stone",
-      "requiredResource":{
-         "hay":null,
-         "clay":null,
-         "lumber":null,
-         "stone":null,
-         "wool":null
-      },
+      "requiredResource":null,
       "plusOneResource":"Wool",
       "produce":null,
       "value":null,
@@ -445,13 +433,7 @@
       "type":"Stone",
       "color":"gray",
       "resource":"Stone",
-      "requiredResource":{
-         "hay":null,
-         "clay":null,
-         "lumber":null,
-         "stone":null,
-         "wool":null
-      },
+      "requiredResource":null,
       "plusOneResource":"Lumber",
       "produce":null,
       "value":null,
@@ -538,13 +520,7 @@
       "type":"Stone",
       "color":"gray",
       "resource":"Stone",
-      "requiredResource":{
-         "hay":null,
-         "clay":null,
-         "lumber":null,
-         "stone":null,
-         "wool":null
-      },
+      "requiredResource":null,
       "plusOneResource":"Wool",
       "produce":null,
       "value":null,
@@ -654,13 +630,7 @@
       "type":"Stone",
       "color":"gray",
       "resource":"Stone",
-      "requiredResource":{
-         "hay":null,
-         "clay":null,
-         "lumber":null,
-         "stone":null,
-         "wool":null
-      },
+      "requiredResource":null,
       "plusOneResource":"Stone",
       "produce":null,
       "value":null,
