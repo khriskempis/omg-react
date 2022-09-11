@@ -15,24 +15,17 @@
 // 	“isFirstPlayer” : true,
 // }
 
+const Building = require('../Building');
+
 class Player {
   constructor(name){
     this.userName = name;
-    this.playerData = {};
-
-    this.createPlayer();
-  }
-
-  createPlayer(){
-    this.playerData = {
-      id: this._createPlayerId(),
-      username: this.userName,
-      money: 0,
-      vp: 0,
-      hand: [],
-      town: [],
-      assistants: []
-    }
+    this.id = this._createPlayerId();
+    this.money = 0;
+    this.vp = 0;
+    this.hand = [];
+    this.town = [];
+    this.assistants = [];
   }
 
   _createPlayerId(){
@@ -40,23 +33,22 @@ class Player {
   }
 
   addCardToHand(cards){
-    let { hand } = this.playerData;
+    let { hand } = this;
     let newHand = [
       ...cards, 
       ...hand
     ]
 
-    this.playerData.hand = newHand;
+    this.hand = newHand;
   }
 
-  addBuilding(building){
-    let { town } = this.playerData;
-    let newTown = [
-      building,
-      ...town
-    ]
+  addBuilding(cardData){
+    let { town } = this;
 
-    this.playerData.town = newTown 
+    this.town = [
+      new Building(cardData),
+      ...town
+    ] 
   }
 }
 

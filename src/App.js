@@ -57,7 +57,7 @@ class App extends Component {
     const { userName } = this.state;
     const card = this.gameObj.gameDeck.deal(1);
     const currentPlayer = this.gameObj.players.find(player => player.userName === userName);
-    currentPlayer.playerData.hand.push(card);
+    currentPlayer.hand.push(card);
 
     this.setState(() => {
       return { game: this.gameObj.data}

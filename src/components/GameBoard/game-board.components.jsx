@@ -17,8 +17,8 @@ const GameBoard = ({gameObj, player}) => {
         <MarketPlace marketArray={marketSunset} className={'sunset'}/>
       </div>
 
-      <PlayerHand player={player.playerData} />
-      <Town player={player.playerData} />
+      <PlayerHand player={player} />
+      <Town player={player} />
       
     </div>
   )

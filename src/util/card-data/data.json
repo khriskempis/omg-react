@@ -336,7 +336,9 @@
       "type":"Lumber",
       "color":"green",
       "resource":"Lumber",
-      "requiredResource": 11,
+      "requiredResource": {
+         "totalGoods": 11
+      },
       "produce":"Glass",
       "value":4,
       "chain":[]
