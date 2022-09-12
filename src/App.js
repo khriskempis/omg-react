@@ -41,7 +41,8 @@ class App extends Component {
           game: this.gameObj.data,
           // assign first player of array
           player: this.gameObj.players[0],
-          hasGameStart: true
+          hasGameStart: true,
+          currentPhase: this.gameObj.currentPhase,
         }
       })
     }
@@ -64,6 +65,11 @@ class App extends Component {
     this.setState(() => {
       return { game: this.gameObj.data}
     })
+  }
+
+  setWorker = (building) => {
+    console.log('setWorker');
+    console.log(building);
   }
 
   render() {
@@ -103,6 +109,8 @@ class App extends Component {
             <GameBoard 
               game={game.game}
               player={player}
+              phase={game.currentPhase}
+              setWorker={(building) => this.setWorker(building)}
             />
           </div>
         }

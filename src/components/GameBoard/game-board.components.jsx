@@ -5,7 +5,7 @@ import PlayerHand from '../PlayerHand/playerHand.component';
 import Town from '../Town/town.component';
 import MarketPlace from '../MarketPlace/marketPlace.components';
 
-const GameBoard = ({game, player}) => {
+const GameBoard = ({game, player, phase, setWorker}) => {
 
   const { marketSunrise, marketSunset } = game;
 
@@ -18,7 +18,7 @@ const GameBoard = ({game, player}) => {
       </div>
 
       <PlayerHand player={player} />
-      <Town player={player} />
+      <Town player={player} phase={phase} setWorker={setWorker}/>
       
     </div>
   )

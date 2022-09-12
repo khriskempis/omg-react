@@ -25,7 +25,7 @@
 const { 
   EFFICIENT,
   INEFFICIENT
-} = require('../constants');
+} = require('../../constants');
 class Building {
   constructor(
     {

@@ -9,7 +9,7 @@ const {
     PLACE_WORKER,
     MARKETPLACE_SUNSET,
     BUYING_PHASE 
-} = require('../constants');
+} = require('../../constants');
 
 class Game {
     constructor(userNames){
@@ -35,6 +35,7 @@ class Game {
         return {
             players: this.players, 
             gameDeck: this.gameDeck,
+            currentPhase: this.currentPhaseOfGame,
             game: this,
         }
     }
