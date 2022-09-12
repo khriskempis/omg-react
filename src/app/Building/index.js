@@ -69,8 +69,17 @@ class Building {
     this.totalGoods = 0;
     this.hasWorker = false
     this.hasAssistant = false
-    this.workerState = EFFICIENT;
+    this.workerStatus = EFFICIENT;
+  }
 
+  addWorker(workerStatus, isAssitant = false){
+    // add logic to handle having an assitant already on a building
+    isAssitant ? this.hasWorker = true : this.hasWorker = true;
+    this.workerStatus = workerStatus
+  }
+
+  removeWorker(){
+    this.hasWorker = false;
   }
 }
 

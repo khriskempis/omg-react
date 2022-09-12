@@ -18,7 +18,11 @@ const GameBoard = ({game, player, phase, setWorker}) => {
       </div>
 
       <PlayerHand player={player} />
-      <Town player={player} phase={phase} setWorker={setWorker}/>
+      <Town 
+        player={player} 
+        phase={phase} 
+        setWorker={setWorker}
+      />
       
     </div>
   )

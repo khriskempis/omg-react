@@ -12,12 +12,12 @@ import {
 import './town.styles.scss'
 
 const Town = ({ player: { town }, phase, setWorker}) => {
+
   const handleSelectWorker = (event) => {
-    console.log(event)
     const { innerText, parentElement: { dataset: { id } } } = event.target;
     return setWorker({
+      buildingId: id,
       workerStatus: innerText,
-      id,
     });
   }
 
@@ -43,7 +43,11 @@ const Town = ({ player: { town }, phase, setWorker}) => {
               >
                 {
                   phase === PLACE_WORKER && 
-                    <div className="town__select-worker" data-id={id} onClick={handleSelectWorker}>
+                    <div 
+                      className="town__select-worker" 
+                      data-id={id} 
+                      onClick={handleSelectWorker}
+                    >
                       <label>Place Worker</label>
                       <button>Efficient</button>
                       <button>Inefficient</button>

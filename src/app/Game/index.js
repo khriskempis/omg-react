@@ -146,6 +146,15 @@ class Game {
         }
     }
 
+    placeWorker(playerId, workerData){
+        const { buildingId, workerStatus } = workerData;
+
+        const currentPlayer = this.players.find(player => player.id === playerId)
+        const building = currentPlayer.town.find(building => building.id == buildingId)
+
+        building.addWorker(workerStatus)
+    }
+
     // track first player
 
     // track Player stats

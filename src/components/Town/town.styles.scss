@@ -1,6 +1,12 @@
 .town {
+  $self: &;
+
   border: 1px solid transparent;
   background-color: #ffc0b36b;
+
+  &__list-container {
+    padding-top: 40px;
+  }
 
   &__list {
     padding: 0;
@@ -9,5 +15,21 @@
 
   &__building {
     min-width: 150px;
+
+    &:hover {
+      #{$self}__select-worker {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__select-worker {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: -50px;
+    background-color: #97de97;
+    padding: 5px 0 10px;
+    border-radius: 7px;
   }
 }

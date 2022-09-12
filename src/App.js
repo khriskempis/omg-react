@@ -67,9 +67,14 @@ class App extends Component {
     })
   }
 
-  setWorker = (building) => {
-    console.log('setWorker');
-    console.log(building);
+  setWorker = (workerData) => {
+    const { player: { id } } = this.state;
+
+    this.gameObj.placeWorker(id, workerData)
+
+    this.setState(() => {
+      return { game: this.gameObj.data}
+    })
   }
 
   render() {
@@ -78,7 +83,8 @@ class App extends Component {
       onUserNameChange, 
       startGame,
       handleDealCard,
-      handleTriggerPhase
+      handleTriggerPhase,
+      setWorker
     } = this;
 
     return (
@@ -110,7 +116,7 @@ class App extends Component {
               game={game.game}
               player={player}
               phase={game.currentPhase}
-              setWorker={(building) => this.setWorker(building)}
+              setWorker={setWorker}
             />
           </div>
         }
