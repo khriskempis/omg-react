@@ -83,12 +83,10 @@ class Game {
     }
 
     advancePhase(){
-        console.log('advance phase')
         this.currentPhaseOfGame = this.nextPhaseOfGame;
     }
 
     checkPhase(){
-        console.log('checking phase')
        const { currentPhaseOfGame } = this;
         switch (currentPhaseOfGame) {
             case TURN_START:
@@ -106,6 +104,7 @@ class Game {
                 this.marketSunrise = [];
                 // restart game
                 // submit old hand, deal new hand
+                // reset workers on towns
                 this.nextPhaseOfGame = DEAL_CARDS;
                 break;
             case DEAL_CARDS: 

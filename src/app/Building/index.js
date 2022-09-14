@@ -74,7 +74,7 @@ class Building {
 
   addWorker(workerStatus, isAssitant = false){
     // add logic to handle having an assitant already on a building
-    isAssitant ? this.hasWorker = true : this.hasWorker = true;
+    isAssitant ? this.hasAssistant = true : this.hasWorker = true;
     this.workerStatus = workerStatus
   }
 

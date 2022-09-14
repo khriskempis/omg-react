@@ -1,0 +1,11 @@
+.App {
+  text-align: center;
+}
+
+.message-board {
+  margin: 20px;
+  &__message {
+    font-size: 18px;
+    font-weight: 700;
+  }
+}

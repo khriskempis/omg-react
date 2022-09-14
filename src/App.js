@@ -1,11 +1,11 @@
 import { Component } from 'react';
-import './App.css';
+import './App.scss';
 
 import Game from "./app/Game/";
 
 // Components
 import GameBoard from './components/GameBoard/game-board.components';
-import { PLACE_WORKER } from './constants';
+import { PLACE_WORKER, TURN_START } from './constants';
 class App extends Component {
   constructor(){
     super();
@@ -16,6 +16,7 @@ class App extends Component {
       userName: 'Khris',
       player: {},
       playerChoice: {},
+      currentPhase: TURN_START
     }
 
     this.gameObj = {}
@@ -44,7 +45,6 @@ class App extends Component {
           // assign first player of array
           player: this.gameObj.players[0],
           hasGameStart: true,
-          currentPhase: this.gameObj.currentPhase,
         }
       })
     }
@@ -65,7 +65,11 @@ class App extends Component {
   handleTriggerPhase = () => {
     this.gameObj.advancePhase();
     this.gameObj.checkPhase();
-    this.setState({ game: this.gameObj.data })
+    const { data, data: { currentPhase } } = this.gameObj;
+    this.setState({ 
+      game: data,
+      currentPhase
+    })
   }
 
   handleCommitAction = () => {
@@ -108,7 +112,7 @@ class App extends Component {
   // update state
 
   render() {
-    const { hasGameStart, game, player, userName } = this.state;
+    const { hasGameStart, game, player, userName, currentPhase } = this.state;
     const { 
       onUserNameChange, 
       startGame,
@@ -125,6 +129,8 @@ class App extends Component {
         {
           !hasGameStart 
           ? 
+          // separate into own function with state 
+          // username 
           <form onSubmit={startGame}>
             <label>Add username
               <input 
@@ -142,6 +148,9 @@ class App extends Component {
               <button onClick={handleDealCard}>Deal Card</button>
               <button onClick={handleTriggerPhase}>Trigger Next Phase</button>
               <button onClick={handleCommitAction}>End Turn</button>
+            </div>
+            <div className="message-board">
+              <label className="message-board__message">{currentPhase}</label>
             </div>
             <GameBoard 
               game={game.game}
