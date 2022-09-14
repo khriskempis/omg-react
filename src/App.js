@@ -5,6 +5,7 @@ import Game from "./app/Game/";
 
 // Components
 import GameBoard from './components/GameBoard/game-board.components';
+import { PLACE_WORKER } from './constants';
 class App extends Component {
   constructor(){
     super();
@@ -13,7 +14,8 @@ class App extends Component {
       hasGameStart: false,
       game: {},
       userName: 'Khris',
-      player: {}
+      player: {},
+      playerChoice: {},
     }
 
     this.gameObj = {}
@@ -61,21 +63,49 @@ class App extends Component {
   }
 
   handleTriggerPhase = () => {
+    this.gameObj.advancePhase();
     this.gameObj.checkPhase();
-    this.setState(() => {
-      return { game: this.gameObj.data}
-    })
+    this.setState({ game: this.gameObj.data })
   }
 
-  setWorker = (workerData) => {
-    const { player: { id } } = this.state;
+  handleCommitAction = () => {
+    const { playerChoice: { action, payload } }  = this.state
 
+    if(action || payload){
+      switch (action) {
+        case PLACE_WORKER:
+          this.setWorker(payload);
+          break;
+      
+        default:
+          break;
+      }
+    }
+
+    this.setState({ playerChoice: {}})
+  }
+
+  prepWorker = (workerData) => {
+    const { player: { id } } = this.state;
+    let playerChoice = {
+      action: PLACE_WORKER,
+      payload: {
+        id, 
+        workerData,
+      }
+    }
+    this.setState({ playerChoice })
+  }
+
+  setWorker = ({ id, workerData }) => {
     this.gameObj.placeWorker(id, workerData)
 
-    this.setState(() => {
-      return { game: this.gameObj.data}
-    })
+    this.setState({ game: this.gameObj.data })
   }
+
+  // setup state to accept choices from player 
+  // after selecting end turn, commit those choices to the game obj
+  // update state
 
   render() {
     const { hasGameStart, game, player, userName } = this.state;
@@ -84,7 +114,8 @@ class App extends Component {
       startGame,
       handleDealCard,
       handleTriggerPhase,
-      setWorker
+      prepWorker,
+      handleCommitAction,
     } = this;
 
     return (
@@ -110,13 +141,13 @@ class App extends Component {
             <div className="trigger">
               <button onClick={handleDealCard}>Deal Card</button>
               <button onClick={handleTriggerPhase}>Trigger Next Phase</button>
-              <button>End Turn</button>
+              <button onClick={handleCommitAction}>End Turn</button>
             </div>
             <GameBoard 
               game={game.game}
               player={player}
               phase={game.currentPhase}
-              setWorker={setWorker}
+              setWorker={prepWorker}
             />
           </div>
         }

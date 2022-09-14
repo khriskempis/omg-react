@@ -19,6 +19,7 @@ class Game {
         this.gameDeck = [];
 
         this.currentPhaseOfGame = TURN_START;
+        this.nextPhaseOfGame = DEAL_CARDS;
 
         // MarketPlace 
         this.marketSunrise = [];
@@ -81,8 +82,13 @@ class Game {
         })
     }
 
-    checkPhase(){
+    advancePhase(){
+        console.log('advance phase')
+        this.currentPhaseOfGame = this.nextPhaseOfGame;
+    }
 
+    checkPhase(){
+        console.log('checking phase')
        const { currentPhaseOfGame } = this;
         switch (currentPhaseOfGame) {
             case TURN_START:
@@ -100,7 +106,7 @@ class Game {
                 this.marketSunrise = [];
                 // restart game
                 // submit old hand, deal new hand
-                this.currentPhaseOfGame = DEAL_CARDS;
+                this.nextPhaseOfGame = DEAL_CARDS;
                 break;
             case DEAL_CARDS: 
                 console.log('dealing 2 cards')
@@ -108,28 +114,28 @@ class Game {
                 this.players.forEach(player => {
                     player.addCardToHand(this.gameDeck.deal(2))
                 })
-                this.currentPhaseOfGame = MARKETPLACE_SUNRISE;
+                this.nextPhaseOfGame = MARKETPLACE_SUNRISE;
                 break;
             case MARKETPLACE_SUNRISE:
                 console.log('market place sunrise');
                 this.addToMarketPlace(this.marketSunrise);
-                this.currentPhaseOfGame = PLACE_WORKER;
+                this.nextPhaseOfGame = PLACE_WORKER;
                 break;
             case PLACE_WORKER:
                 console.log('place worker');
-                this.currentPhaseOfGame = MARKETPLACE_SUNSET                
+                this.nextPhaseOfGame = MARKETPLACE_SUNSET                
                 break;
             case MARKETPLACE_SUNSET:
                 console.log('marketplace sunsert')
                 this.addToMarketPlace(this.marketSunset);
-                this.currentPhaseOfGame = BUYING_PHASE;
+                this.nextPhaseOfGame = BUYING_PHASE;
                 break;
             case BUYING_PHASE:
                 console.log('buying phase');
                 // calculate resources used and buildings that produced
 
                 // restart game
-                this.currentPhaseOfGame = TURN_START;
+                this.nextPhaseOfGame = TURN_START;
                 break;
             default:
 
