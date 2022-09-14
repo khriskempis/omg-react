@@ -5,6 +5,7 @@ import Game from "./app/Game/";
 
 // Components
 import GameBoard from './components/GameBoard/game-board.components';
+import MessageBoard from './components/MessageBoard';
 import { PLACE_WORKER, TURN_START } from './constants';
 class App extends Component {
   constructor(){
@@ -20,9 +21,6 @@ class App extends Component {
     }
 
     this.gameObj = {}
-  }
-  
-  componentDidMount(){
   }
 
   onUserNameChange = (event) => {
@@ -112,7 +110,14 @@ class App extends Component {
   // update state
 
   render() {
-    const { hasGameStart, game, player, userName, currentPhase } = this.state;
+    const { 
+      hasGameStart, 
+      game, 
+      player, 
+      userName,
+      playerChoice, 
+      currentPhase 
+    } = this.state;
     const { 
       onUserNameChange, 
       startGame,
@@ -149,9 +154,11 @@ class App extends Component {
               <button onClick={handleTriggerPhase}>Trigger Next Phase</button>
               <button onClick={handleCommitAction}>End Turn</button>
             </div>
-            <div className="message-board">
-              <label className="message-board__message">{currentPhase}</label>
-            </div>
+            <MessageBoard 
+              currentPhase={currentPhase}
+              playerChoice={playerChoice}
+              commitAction={handleCommitAction}
+            />
             <GameBoard 
               game={game.game}
               player={player}

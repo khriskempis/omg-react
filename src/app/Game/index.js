@@ -90,8 +90,9 @@ class Game {
        const { currentPhaseOfGame } = this;
         switch (currentPhaseOfGame) {
             case TURN_START:
+                // restart game
                 console.log('Turn start')
-                
+                // discard marketplace
                 if(this.marketSunrise.length || this.marketSunset.length){
                     const discardedCards = [
                         ...this.marketSunrise,
@@ -99,12 +100,17 @@ class Game {
                     ]
                     this.gameDeck.discard(discardedCards);
                 }
-
+                // set market to empty array
                 this.marketSunset = [];
                 this.marketSunrise = [];
-                // restart game
                 // submit old hand, deal new hand
+
                 // reset workers on towns
+                this.players.forEach(player => {
+                    player.town.forEach(building => {
+                        building.hasWorker = false;
+                    })
+                })
                 this.nextPhaseOfGame = DEAL_CARDS;
                 break;
             case DEAL_CARDS: 
