@@ -6,7 +6,7 @@ import Game from "./app/Game/";
 // Components
 import GameBoard from './components/GameBoard/game-board.components';
 import MessageBoard from './components/MessageBoard';
-import { PLACE_WORKER, TURN_START } from './constants';
+import { PLACE_WORKER, TURN_START, SUBMIT_CARDS } from './constants';
 class App extends Component {
   constructor(){
     super();
@@ -60,7 +60,7 @@ class App extends Component {
     })
   }
 
-  handleTriggerPhase = () => {
+  handleNextTriggerPhase = () => {
     this.gameObj.advancePhase();
     this.gameObj.checkPhase();
     const { data, data: { currentPhase } } = this.gameObj;
@@ -78,11 +78,16 @@ class App extends Component {
         case PLACE_WORKER:
           this.setWorker(payload);
           break;
+
+        case SUBMIT_CARDS:
+          this.setCards(payload);
+          break;
       
         default:
           break;
       }
     }
+    this.handleNextTriggerPhase();
 
     this.setState({ playerChoice: {}})
   }
@@ -93,16 +98,35 @@ class App extends Component {
       action: PLACE_WORKER,
       payload: {
         id, 
-        workerData,
+        data: workerData,
       }
     }
     this.setState({ playerChoice })
   }
 
-  setWorker = ({ id, workerData }) => {
-    this.gameObj.placeWorker(id, workerData)
+  setWorker = ({ id, data }) => {
+    this.gameObj.placeWorker(id, data)
 
     this.setState({ game: this.gameObj.data })
+  }
+
+  prepCards = (cardData) => {
+    const { player: { id } } = this.state;
+    let playerChoice = {
+      action: SUBMIT_CARDS,
+      payload: {
+        id,
+        data: cardData
+      }
+    }
+    this.setState({ playerChoice })
+  }
+
+  setCards = ({ id, data }) => {
+    // this.gameObj.placeWorker(id, data)
+
+    // this.setState({ game: this.gameObj.data })
+    console.log(data);
   }
 
   // setup state to accept choices from player 
@@ -122,9 +146,10 @@ class App extends Component {
       onUserNameChange, 
       startGame,
       handleDealCard,
-      handleTriggerPhase,
+      handleNextTriggerPhase,
       prepWorker,
       handleCommitAction,
+      prepCards
     } = this;
 
     return (
@@ -151,7 +176,7 @@ class App extends Component {
           <div>
             <div className="trigger">
               <button onClick={handleDealCard}>Deal Card</button>
-              <button onClick={handleTriggerPhase}>Trigger Next Phase</button>
+              <button onClick={handleNextTriggerPhase}>Trigger Next Phase</button>
               <button onClick={handleCommitAction}>End Turn</button>
             </div>
             <MessageBoard 
@@ -164,6 +189,7 @@ class App extends Component {
               player={player}
               phase={game.currentPhase}
               setWorker={prepWorker}
+              submitCards={prepCards}
             />
           </div>
         }

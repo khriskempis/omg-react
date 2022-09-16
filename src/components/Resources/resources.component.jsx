@@ -8,16 +8,16 @@ export const renderRequiredResource = (requiredResource) => {
             return amount !== null;
           })
           .map(([ resource, amount ], index) => {
-              return(
-                <p 
-                  className="required-resource"
-                  key={index}
-                  type={resource} 
-                  anount={amount}
-                >
-                  {amount} {resource.charAt(0).toUpperCase() + resource.slice(1)}
-                </p> 
-              )
+            return(
+              <p 
+                className="required-resource"
+                key={index}
+                type={resource} 
+                anount={amount}
+              >
+                {amount} {resource.charAt(0).toUpperCase() + resource.slice(1)}
+              </p> 
+            )
           })
       }
     </>

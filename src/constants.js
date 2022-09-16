@@ -9,3 +9,6 @@ export const BUYING_PHASE = 'buying phase';
 // BUILDING CLASS
 export const EFFICIENT = 'efficient';
 export const INEFFICIENT = 'inefficient';
+
+// PLAYER ACTIONS 
+export const SUBMIT_CARDS = 'submit cards';
