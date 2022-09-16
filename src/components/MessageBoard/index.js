@@ -61,6 +61,10 @@ const MessageBoard = ({ currentPhase, playerChoice, commitAction }) => {
       statusMessage = (
         <>
           <h4>Buying Phase</h4>
+          {
+            Object.keys(playerChoice).length !== 0 &&
+            <button onClick={commitAction}>Confirm Submit Cards</button>
+          }
         </>
       )
       break;
