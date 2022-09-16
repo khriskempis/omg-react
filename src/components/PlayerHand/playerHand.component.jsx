@@ -4,11 +4,12 @@ import {
   renderRequiredResource, 
   renderMarketOfficeResource
 } from '../Resources/resources.component'
-import { BUYING_PHASE } from '../../constants'
+import { BUYING_PHASE, TURN_START } from '../../constants'
 
 const PlayerHand = ({ player: { hand }, phase, submitCards }) => {
   let [selectedCards, setCards] = useState([])
-  
+
+  // reset cards to default state
 
   const selectCard = (id) => {
     const idInt = parseInt(id);
@@ -19,6 +20,7 @@ const PlayerHand = ({ player: { hand }, phase, submitCards }) => {
         idInt,
         ...selectedCards
       ])
+      submitCards(selectedCards);
     } else {
       console.log('card already selected');
     }
@@ -32,14 +34,20 @@ const PlayerHand = ({ player: { hand }, phase, submitCards }) => {
       const indexOfId = selectedCards.indexOf(idInt);
       if(indexOfId !== -1){
         console.log(indexOfId);
+
+        // need to test if this is actually setting the state when you deselect a card
+        // may need to revisit this and get other functionality working
         setCards(initialState => {
-          
-          initialState.splice(indexOfId, 1)
-          return initialState;
+          const newState = initialState.filter(function(ids) {
+            return ids !== idInt
+          })
+          return newState;
         });
+        submitCards(selectedCards);
       }
     }
   }
+
   return (
     <div className="player-hand game__section">
       <h4>Hand</h4>
@@ -66,6 +74,8 @@ const PlayerCard = ({ data, phase, selectCard, deselectCard }) => {
   const { id, name, resource, requiredResource, plusOneResource, produce, value } = data;
 
   const [hasSelected, setHasSelected] = useState(false)
+
+  // reset selected cards;
 
   const handleSelectClick = (e) => {
     const cardId = e.target.dataset.cardId;

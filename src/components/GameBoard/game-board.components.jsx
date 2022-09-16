@@ -27,7 +27,6 @@ const GameBoard = ({
         player={player} 
         submitCards={submitCards}
         phase={phase}
-        submitCards={submitCards}
       />
       <Town 
         player={player} 

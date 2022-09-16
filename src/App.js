@@ -87,9 +87,8 @@ class App extends Component {
           break;
       }
     }
-    this.handleNextTriggerPhase();
-
     this.setState({ playerChoice: {}})
+    this.handleNextTriggerPhase();
   }
 
   prepWorker = (workerData) => {
