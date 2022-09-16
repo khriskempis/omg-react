@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './playerHand.styles.scss'
 import { 
   renderRequiredResource, 
@@ -6,23 +6,38 @@ import {
 } from '../Resources/resources.component'
 import { BUYING_PHASE, TURN_START } from '../../constants'
 
+const SELECT = 'select',
+      UNSELECT = 'unselect';
+
 const PlayerHand = ({ player: { hand }, phase, submitCards }) => {
   let [selectedCards, setCards] = useState([])
 
   // reset cards to default state
+
+  const handleSelectCard = (type, cardId) => {
+    switch (type) {
+      case SELECT:
+        selectCard(cardId);
+        break;
+      case UNSELECT:
+        deselectCard(cardId);
+        break;
+    
+      default:
+        break;
+    }
+  }
 
   const selectCard = (id) => {
     const idInt = parseInt(id);
     if(isNaN(idInt)) return;
 
     if(!selectedCards.includes(idInt)){
+      submitCards([idInt, ...selectedCards]);
       setCards([
         idInt,
         ...selectedCards
       ])
-      submitCards(selectedCards);
-    } else {
-      console.log('card already selected');
     }
   }
 
@@ -34,16 +49,13 @@ const PlayerHand = ({ player: { hand }, phase, submitCards }) => {
       const indexOfId = selectedCards.indexOf(idInt);
       if(indexOfId !== -1){
         console.log(indexOfId);
-
         // need to test if this is actually setting the state when you deselect a card
         // may need to revisit this and get other functionality working
-        setCards(initialState => {
-          const newState = initialState.filter(function(ids) {
-            return ids !== idInt
-          })
-          return newState;
-        });
-        submitCards(selectedCards);
+        const newState = selectedCards.filter(function(ids) {
+          return ids !== idInt
+        })
+        submitCards(newState);
+        setCards(newState);
       }
     }
   }
@@ -53,14 +65,13 @@ const PlayerHand = ({ player: { hand }, phase, submitCards }) => {
       <h4>Hand</h4>
       <div className="player-hand__list-container container__overflow-scroll">
         <ul className="player-hand__list">
-          { hand && hand.map((handData, index) => 
+          { hand && hand.map((handData) => 
             <PlayerCard 
-              key={index}
+              key={handData.id}
               data={handData} 
               phase={phase} 
               selectedCards={selectedCards} 
-              selectCard={selectCard} 
-              deselectCard={deselectCard}
+              handleSelectCard={handleSelectCard}
             /> ) 
           }
         </ul>
@@ -70,23 +81,30 @@ const PlayerHand = ({ player: { hand }, phase, submitCards }) => {
   )
 }
 
-const PlayerCard = ({ data, phase, selectCard, deselectCard }) => {
+const PlayerCard = ({ data, phase, handleSelectCard }) => {
   const { id, name, resource, requiredResource, plusOneResource, produce, value } = data;
 
   const [hasSelected, setHasSelected] = useState(false)
-
   // reset selected cards;
 
-  const handleSelectClick = (e) => {
+  const handleButtonClick = (e) => {
     const cardId = e.target.dataset.cardId;
-    setHasSelected(!hasSelected);
-    selectCard(cardId)
-  }
+    const selectType = e.target.dataset.selectType;
 
-  const handleUnselectClick = (e) => {
-    const cardId = e.target.dataset.cardId;
-    setHasSelected(!hasSelected);
-    deselectCard(cardId)
+    switch (selectType) {
+      case SELECT:
+        setHasSelected(!hasSelected);
+        handleSelectCard(SELECT, cardId)
+        break;
+      
+      case UNSELECT:
+        setHasSelected(!hasSelected);
+        handleSelectCard(UNSELECT, cardId)
+        break;
+    
+      default:
+        break;
+    }
   }
 
   return (
@@ -111,13 +129,13 @@ const PlayerCard = ({ data, phase, selectCard, deselectCard }) => {
       {
         phase === BUYING_PHASE && !hasSelected && 
         <div className="player-hand__select-card-button">
-          <button data-card-id={id} onClick={handleSelectClick}>Select</button>
+          <button data-card-id={id} data-select-type={SELECT} onClick={handleButtonClick}>Select</button>
         </div>
       }
       {
         phase === BUYING_PHASE && hasSelected && 
         <div className="player-hand__select-card-button">
-          <button data-card-id={id} onClick={handleUnselectClick}>Unselect</button>
+          <button data-card-id={id} data-select-type={UNSELECT} onClick={handleButtonClick}>Unselect</button>
         </div>
       }
     </li>

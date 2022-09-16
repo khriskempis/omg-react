@@ -122,10 +122,13 @@ class App extends Component {
   }
 
   setCards = ({ id, data }) => {
-    // this.gameObj.placeWorker(id, data)
-
-    // this.setState({ game: this.gameObj.data })
+    console.log('set cards');
     console.log(data);
+    
+    this.gameObj.turnInResources(id, data)
+
+    this.setState({ game: this.gameObj.data })
+
   }
 
   // setup state to accept choices from player 

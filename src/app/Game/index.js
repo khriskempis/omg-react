@@ -166,6 +166,23 @@ class Game {
         building.addWorker(workerStatus)
     }
 
+    turnInResources(playerId, cardIds){
+        const discardedCards = [];
+        const currentPlayer = this.players.find(player => player.id === playerId)
+        const newPlayerHand = currentPlayer.hand.filter(card => {
+            if(cardIds.includes(card.id)){
+                discardedCards.push(card);
+            } 
+            return !cardIds.includes(card.id);
+        })
+        // this.players.forEach(player => {
+        //     if(player.id === currentPlayer.id){
+        //         player.hand = newPlayerHand;
+        //     }
+        // });
+        currentPlayer.hand = newPlayerHand
+    }
+
     // track first player
 
     // track Player stats
