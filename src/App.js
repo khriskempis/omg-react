@@ -1,73 +1,197 @@
 import { Component } from 'react';
-import './App.css';
-import Deck from "./components/deck.component"
-import cardData from "./app/card-data/data.json";
+import './App.scss';
 
-import Game from "./app/Game/Game.js";
+import Game from "./app/Game/";
+
+// Components
+import GameBoard from './components/GameBoard/game-board.components';
+import MessageBoard from './components/MessageBoard/messageBoard.component';
+import { PLACE_WORKER, TURN_START, SUBMIT_CARDS } from './constants';
 class App extends Component {
   constructor(){
     super();
 
     this.state = {
-      gameStart: false,
+      hasGameStart: false,
       game: {},
-      user: '',
-
+      userName: 'Khris',
+      player: {},
+      playerChoice: {},
+      currentPhase: TURN_START
     }
 
     this.gameObj = {}
   }
-  
-  componentDidMount(){
-
-  }
 
   onUserNameChange = (event) => {
     this.setState(()=> {
-      return { user: event.target.value}
+      return { userName: event.target.value}
     })
   }
 
-  startGame = () => {
-    if(!this.state.gameStart){
-      let { gameObj } = this;
-      gameObj = new Game([this.state.user]);
-      gameObj.gameStart();
+  startGame = (e) => {
+    e.preventDefault();
+    const { hasGameStart, userName } = this.state;
+    if(!hasGameStart){
+      
+      this.gameObj = new Game([userName]);
+      this.gameObj.gameStart();
+
       this.setState(() => {
         return { 
-          game: gameObj.data,
-          gameStart: true
+          game: this.gameObj.data,
+          // assign first player of array
+          player: this.gameObj.players[0],
+          hasGameStart: true,
         }
-      }, () => {
-        console.log(this.state.game)
       })
     }
   }
 
+  handleDealCard = () => {
+    // fix charburner being dealt from deck
+    const { userName } = this.state;
+    const card = this.gameObj.gameDeck.deal(1);
+    const currentPlayer = this.gameObj.players.find(player => player.userName === userName);
+    currentPlayer.hand.push(card);
 
+    this.setState(() => {
+      return { game: this.gameObj.data}
+    })
+  }
+
+  handleNextTriggerPhase = () => {
+    this.gameObj.advancePhase();
+    this.gameObj.checkPhase();
+    const { data, data: { currentPhase } } = this.gameObj;
+    this.setState({ 
+      game: data,
+      currentPhase
+    })
+  }
+
+  handleCommitAction = () => {
+    const { playerChoice: { action, payload } }  = this.state
+    if(action || payload){
+      switch (action) {
+        case PLACE_WORKER:
+          this.setWorker(payload);
+          break;
+
+        case SUBMIT_CARDS:
+          this.setCards(payload);
+          break;
+      
+        default:
+          break;
+      }
+    }
+    this.setState({ playerChoice: {}})
+    this.handleNextTriggerPhase();
+  }
+
+  prepWorker = (workerData) => {
+    const { player: { id } } = this.state;
+    let playerChoice = {
+      action: PLACE_WORKER,
+      payload: {
+        id, 
+        data: workerData,
+      }
+    }
+    this.setState({ playerChoice })
+  }
+
+  setWorker = ({ id, data }) => {
+    this.gameObj.placeWorker(id, data)
+    this.setState({ game: this.gameObj.data })
+  }
+
+  prepCards = (cardData) => {
+    const { player: { id } } = this.state;
+    let playerChoice = {
+      action: SUBMIT_CARDS,
+      payload: {
+        id,
+        data: cardData
+      }
+    }
+    this.setState({ playerChoice })
+  }
+
+  setCards = ({ id, data }) => {    
+    this.gameObj.turnInResources(id, data)
+    this.setState({ game: this.gameObj.data })
+  }
+
+  // Calculate resources
+  // track building that wants to produce
+  // check market place has resources
+  // sort resources in object with how many of each
+  // check status of worker/assistant 
+  // if doesn't have resources, request cards from player
+  // check if resources satisfy remaining resources
+  // validate cardss submitted include
+  // deal cards to building for worker status
 
   render() {
-    const { gameStart } = this.state;
-    const { onUserNameChange, startGame } = this;
+    const { 
+      hasGameStart, 
+      game, 
+      player, 
+      userName,
+      playerChoice, 
+      currentPhase 
+    } = this.state;
+    const { 
+      onUserNameChange, 
+      startGame,
+      handleDealCard,
+      handleNextTriggerPhase,
+      prepWorker,
+      handleCommitAction,
+      prepCards
+    } = this;
 
     return (
       <div className="App">
-        <h1>OMG App</h1>
+        <h1>Oh My Goods!</h1>
 
         {
-          !gameStart 
+          !hasGameStart 
           ? 
-          <div>
-            <input 
-              type="text" 
-              placeholder="username"
-              onChange={onUserNameChange}
-            />
-            <button onClick={startGame}>add user</button>
-          </div>
+          // separate into own function with state 
+          // username 
+          <form onSubmit={startGame}>
+            <label>Add username
+              <input 
+                type="text" 
+                placeholder="username"
+                onChange={onUserNameChange}
+                value={userName}
+              />
+            </label>
+            <button type="submit" >Start Game</button>
+          </form>
           : 
           <div>
-            <h2>Game start</h2>
+            <div className="trigger">
+              <button onClick={handleDealCard}>Deal Card</button>
+              <button onClick={handleNextTriggerPhase}>Trigger Next Phase</button>
+              <button onClick={handleCommitAction}>End Turn</button>
+            </div>
+            <MessageBoard 
+              currentPhase={currentPhase}
+              playerChoice={playerChoice}
+              commitAction={handleCommitAction}
+            />
+            <GameBoard 
+              game={game.game}
+              player={player}
+              phase={game.currentPhase}
+              setWorker={prepWorker}
+              submitCards={prepCards}
+            />
           </div>
         }
         
