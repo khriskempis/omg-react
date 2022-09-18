@@ -4,6 +4,7 @@ export const DEAL_CARDS = 'deal cards';
 export const MARKETPLACE_SUNRISE = 'marketplace sunrise';
 export const PLACE_WORKER = 'place worker';
 export const MARKETPLACE_SUNSET = 'marketplace sunset';
+export const BUILDING_PRODUCTION = 'building production';
 export const BUYING_PHASE = 'buying phase';
 
 // BUILDING CLASS

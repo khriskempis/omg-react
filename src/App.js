@@ -5,7 +5,7 @@ import Game from "./app/Game/";
 
 // Components
 import GameBoard from './components/GameBoard/game-board.components';
-import MessageBoard from './components/MessageBoard';
+import MessageBoard from './components/MessageBoard/messageBoard.component';
 import { PLACE_WORKER, TURN_START, SUBMIT_CARDS } from './constants';
 class App extends Component {
   constructor(){
@@ -72,7 +72,6 @@ class App extends Component {
 
   handleCommitAction = () => {
     const { playerChoice: { action, payload } }  = this.state
-
     if(action || payload){
       switch (action) {
         case PLACE_WORKER:
@@ -105,7 +104,6 @@ class App extends Component {
 
   setWorker = ({ id, data }) => {
     this.gameObj.placeWorker(id, data)
-
     this.setState({ game: this.gameObj.data })
   }
 
@@ -121,19 +119,20 @@ class App extends Component {
     this.setState({ playerChoice })
   }
 
-  setCards = ({ id, data }) => {
-    console.log('set cards');
-    console.log(data);
-    
+  setCards = ({ id, data }) => {    
     this.gameObj.turnInResources(id, data)
-
     this.setState({ game: this.gameObj.data })
-
   }
 
-  // setup state to accept choices from player 
-  // after selecting end turn, commit those choices to the game obj
-  // update state
+  // Calculate resources
+  // track building that wants to produce
+  // check market place has resources
+  // sort resources in object with how many of each
+  // check status of worker/assistant 
+  // if doesn't have resources, request cards from player
+  // check if resources satisfy remaining resources
+  // validate cardss submitted include
+  // deal cards to building for worker status
 
   render() {
     const { 

@@ -1,4 +1,5 @@
 import { 
+  BUILDING_PRODUCTION,
   BUYING_PHASE, 
   DEAL_CARDS, 
   MARKETPLACE_SUNRISE, 
@@ -53,6 +54,14 @@ const MessageBoard = ({ currentPhase, playerChoice, commitAction }) => {
       statusMessage = (
         <>
           <h4>Marketplace Sunrise</h4>
+        </>
+      )
+      break;
+
+    case BUILDING_PRODUCTION:
+      statusMessage = (
+        <>
+          <h4>Production Phase</h4>
         </>
       )
       break;

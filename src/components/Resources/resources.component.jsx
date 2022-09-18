@@ -1,5 +1,6 @@
 export const renderRequiredResource = (requiredResource) => {
   // TODO: add highest to lowest resource logic to display of resources
+  // use sort function to sort resources from highest to lowest
   return (
     <>
       { 

@@ -91,6 +91,7 @@ const PlayerCard = ({ data, phase, handleSelectCard }) => {
     const cardId = e.target.dataset.cardId;
     const selectType = e.target.dataset.selectType;
 
+    // add empty checks
     switch (selectType) {
       case SELECT:
         setHasSelected(!hasSelected);

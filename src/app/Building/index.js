@@ -39,6 +39,7 @@ class Building {
         clay, 
         lumber, 
         stone,
+        wool,
         totalGoods
       },
       produce, 
@@ -53,11 +54,13 @@ class Building {
     this.name = name;
     this.germanName = germanName;
     this.img = img || null;
+    // TODO: consider not including null values in requiredResource obj
     this.requiredResource = {
       hay: hay || null,
       clay: clay || null,
       lumber: lumber || null,
       stone: stone || null,
+      wool: wool || null,
       totalGoods: totalGoods || null
     };
     this.produce = produce;

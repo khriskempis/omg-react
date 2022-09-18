@@ -8,7 +8,10 @@ const {
     MARKETPLACE_SUNRISE,
     PLACE_WORKER,
     MARKETPLACE_SUNSET,
-    BUYING_PHASE 
+    BUYING_PHASE, 
+    BUILDING_PRODUCTION,
+    EFFICIENT,
+    INEFFICIENT
 } = require('../../constants');
 
 class Game {
@@ -24,6 +27,9 @@ class Game {
         // MarketPlace 
         this.marketSunrise = [];
         this.marketSunset = [];
+        this.totalGoods = [];
+
+        this.productionBuildings = [];
     }
 
     gameStart(){
@@ -103,7 +109,11 @@ class Game {
                 // set market to empty array
                 this.marketSunset = [];
                 this.marketSunrise = [];
+                this.totalGoods = [];
                 // submit old hand, deal new hand
+
+                // reset production buildings
+                this.productionBuildings = [];
 
                 // reset workers on towns
                 this.players.forEach(player => {
@@ -133,11 +143,18 @@ class Game {
             case MARKETPLACE_SUNSET:
                 console.log('marketplace sunsert')
                 this.addToMarketPlace(this.marketSunset);
+                this.nextPhaseOfGame = BUILDING_PRODUCTION;
+                break;
+            case BUILDING_PRODUCTION:
+                console.log('building production');
+                // calculate resources used and buildings that produced
+                this.calculateBuildingProduction();
+                // restart game
                 this.nextPhaseOfGame = BUYING_PHASE;
                 break;
             case BUYING_PHASE:
                 console.log('buying phase');
-                // calculate resources used and buildings that produced
+                // purchase more buildings or assitants
 
                 // restart game
                 this.nextPhaseOfGame = TURN_START;
@@ -155,32 +172,87 @@ class Game {
             market.push(currentCard);
             if(currentCard.sun) suns++;
         }
+        this.totalGoods = this.getTotalMarketPlaceResources();
     }
 
     placeWorker(playerId, workerData){
         const { buildingId, workerStatus } = workerData;
 
-        const currentPlayer = this.players.find(player => player.id === playerId)
+        const currentPlayer = this.getCurrentPlayer(playerId)
         const building = currentPlayer.town.find(building => building.id == buildingId)
 
+        // add building to list of buildings that are producing
+        this.productionBuildings.push({
+            playerId,
+            building
+        })
         building.addWorker(workerStatus)
     }
 
     turnInResources(playerId, cardIds){
         const discardedCards = [];
-        const currentPlayer = this.players.find(player => player.id === playerId)
+        const currentPlayer = this.getCurrentPlayer(playerId)
         const newPlayerHand = currentPlayer.hand.filter(card => {
             if(cardIds.includes(card.id)){
                 discardedCards.push(card);
             } 
             return !cardIds.includes(card.id);
         })
-        // this.players.forEach(player => {
-        //     if(player.id === currentPlayer.id){
-        //         player.hand = newPlayerHand;
-        //     }
-        // });
         currentPlayer.hand = newPlayerHand
+        // this.gameDeck.discard(discardedCards);
+        return discardedCards;
+    }
+
+    calculateBuildingProduction(){
+        // rethink this as this function is expensive
+        // has too many loops within 
+        // TODO: move this to client side logic
+        this.players.forEach(player => {
+            const currentPlayer = this.getCurrentPlayer(player.id);
+            currentPlayer.town.forEach(building => {
+                const { hasWorker, hasAssistant } = building;
+                if(hasWorker || hasAssistant){
+                    const { totalGoods } = this;
+                    const { requiredResource, workerStatus } = building;
+                    let resources = Object.entries(requiredResource)
+                        .filter(([ resource, amount ]) => {
+                            return amount !== null;
+                        })
+
+                    // check set if requiredResources is met
+                    const hasResources = resources.map(([resource, amount]) => {
+                        return (totalGoods[resource] && totalGoods[resource] >= amount) ?? false;
+                    })
+                    const [ hasResourceA, hasResourceB ] = hasResources;
+
+                    if(hasWorker && workerStatus === EFFICIENT && hasResourceA && hasResourceB){
+                        console.log('has Efficiently produced, deal 2 goods');
+                    } else {
+                        console.log('failed to produce')
+                    }
+                } else {
+                    console.log('building doesnt have worker')
+                }
+            })
+        })
+    }
+
+    // separate into helpers file 
+    getCurrentPlayer(playerId){
+        return this.players.find(player => player.id === playerId)
+    }
+
+    getTotalMarketPlaceResources() {
+        const totalGoods = [...this.marketSunrise, ...this.marketSunset].reduce((allCards, card) => {
+            let resource = card.resource.toLowerCase();
+            // grab existing count or set to 0
+            const resourceCount = allCards[resource] ?? 0;
+            return {
+                ...allCards,
+                [resource]: resourceCount + 1
+            }
+        }, {})
+        return totalGoods;
     }
 
     // track first player
